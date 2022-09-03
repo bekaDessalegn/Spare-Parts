@@ -5,6 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:spare_parts/Authentication/bloc/login_bloc.dart';
+import 'package:spare_parts/Authentication/dataprovider/login_bloc_data.dart';
+import 'package:spare_parts/Authentication/repository/login_bloc_repo.dart';
+import 'package:spare_parts/Authentication/screen/login_page.dart';
 import 'package:spare_parts/InternetConnection/internet_connection_page.dart';
 import 'package:spare_parts/LoggedIn/LoggedInSplashView.dart';
 import 'package:spare_parts/LoggedIn/LoginPage.dart';
@@ -37,13 +41,18 @@ void main() async {
 
 class TheApp extends StatelessWidget {
   final router = GoRouter(
-    initialLocation: '/Internet',
+    initialLocation: '/login_bloc',
     urlPathStrategy: UrlPathStrategy.path,
       routes: [
         GoRoute(
             path: '/Internet',
             pageBuilder: (context, state) =>
                 MaterialPage(key: state.pageKey, child: InternetChecker())
+        ),
+        GoRoute(
+            path: '/login_bloc',
+            pageBuilder: (context, state) =>
+                MaterialPage(key: state.pageKey, child: LoginBlocPage())
         ),
         GoRoute(
             path: '/',
@@ -76,12 +85,14 @@ class TheApp extends StatelessWidget {
           )));
 
   final contentRepository = DataRepository(DataProvider());
+  final loginRepository = LoginBlocRepository(LoginBlocData());
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => BoxContentBloc(contentRepository)..add(LoadAllBoxContents())),
+        BlocProvider(create: (_) => LoginBloc(loginRepository))
       ],
       child: OverlaySupport.global(
         child: MaterialApp.router(
