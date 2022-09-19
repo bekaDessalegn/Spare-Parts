@@ -36,14 +36,14 @@ class NavHomePage extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Color(0xff302360),
+                      fillColor: Colors.grey[200],
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide.none
                       ),
                       hintText: "Search....",
                       prefixIcon: Icon(Icons.search),
-                      prefixIconColor: Colors.purple.shade900,
+                      prefixIconColor: Colors.grey,
 
                     ),
                   ),

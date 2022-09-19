@@ -9,11 +9,13 @@ import 'package:spare_parts/Authentication/bloc/login_bloc.dart';
 import 'package:spare_parts/Authentication/dataprovider/login_bloc_data.dart';
 import 'package:spare_parts/Authentication/repository/login_bloc_repo.dart';
 import 'package:spare_parts/Authentication/screen/login_page.dart';
+import 'package:spare_parts/BottomNavigation/bottom_nav_home.dart';
 import 'package:spare_parts/InternetConnection/internet_connection_page.dart';
 import 'package:spare_parts/LoggedIn/LoggedInSplashView.dart';
 import 'package:spare_parts/LoggedIn/LoginPage.dart';
 import 'package:spare_parts/LoggedIn/shared_preference_service.dart';
 import 'package:spare_parts/MultipleSignup/SignIn.dart';
+import 'package:spare_parts/NavBar/header.dart';
 import 'package:spare_parts/NavigationPrac/bloc/data_bloc.dart';
 import 'package:spare_parts/NavigationPrac/bloc/data_event.dart';
 import 'package:spare_parts/NavigationPrac/data_provider/dataprovider.dart';
@@ -24,8 +26,34 @@ import 'package:spare_parts/NavigationPrac/screeens/nav_home.dart';
 import 'package:spare_parts/OnBoarding/homepage.dart';
 import 'package:spare_parts/OnBoarding/onBoardingPage.dart';
 import 'package:spare_parts/Responsive%20Dashboard/resp_dash_home.dart';
+import 'package:spare_parts/SQLlite/blocs/sqlite_bloc.dart';
+import 'package:spare_parts/SQLlite/blocs/sqlite_event.dart';
+import 'package:spare_parts/SQLlite/datasource/sqlite_remote_data.dart';
+import 'package:spare_parts/SQLlite/repository/sqlite_repository.dart';
+import 'package:spare_parts/SQLlite/screen/sqflite_page.dart';
+import 'package:spare_parts/SideBar/sidebar_screen.dart';
 import 'package:spare_parts/SignInandOut/signin.dart';
 import 'package:spare_parts/TabBar/Tab%20Bar.dart';
+import 'package:flutter/services.dart';
+// import 'package:pushy_flutter/pushy_flutter.dart';
+
+// void backgroundNotificationListener(Map<String, dynamic> data) {
+//   // Print notification payload data
+//   print('Received notification: $data');
+//
+//   // Notification title
+//   String notificationTitle = 'MyApp';
+//
+//   // Attempt to extract the "message" property from the payload: {"message":"Hello World!"}
+//   String notificationText = data['message'] ?? 'Hello World!';
+//
+//   // Android: Displays a system notification
+//   // iOS: Displays an alert dialog
+//   Pushy.notify(notificationTitle, notificationText, data);
+//
+//   // Clear iOS app badge number
+//   Pushy.clearBadge();
+// }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,20 +67,104 @@ void main() async {
   runApp(TheApp());
 }
 
-class TheApp extends StatelessWidget {
+class TheApp extends StatefulWidget {
+  @override
+  State<TheApp> createState() => _TheAppState();
+}
+
+class _TheAppState extends State<TheApp> {
+
+  // Future pushyRegister() async {
+  //   try {
+  //     // Register the user for push notifications
+  //     String deviceToken = await Pushy.register();
+  //
+  //     // Print token to console/logcat
+  //     print('Device token: $deviceToken');
+  //
+  //     // Display an alert with the device token
+  //     showDialog(
+  //         context: context,
+  //         builder: (BuildContext context) {
+  //           return AlertDialog(
+  //               title: Text('Pushy'),
+  //               content: Text('Pushy device token: $deviceToken'),
+  //               actions: [ TextButton( child: Text('OK'), onPressed: () { Navigator.of(context, rootNavigator: true).pop('dialog'); } )]
+  //           );
+  //         }
+  //     );
+  //
+  //     // Optionally send the token to your backend server via an HTTP GET request
+  //     // ...
+  //   } on PlatformException catch (error) {
+  //     // Display an alert with the error message
+  //     showDialog(
+  //         context: context,
+  //         builder: (BuildContext context) {
+  //           return AlertDialog(
+  //               title: Text('Error'),
+  //               content: Text("${error.message}"),
+  //               actions: [ TextButton( child: Text('OK'), onPressed: () { Navigator.of(context, rootNavigator: true).pop('dialog'); } )]
+  //           );
+  //         }
+  //     );
+  //   }
+  // }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // // Start the Pushy service
+    // Pushy.listen();
+    //
+    // // Enable in-app notification banners (iOS 10+)
+    // Pushy.toggleInAppBanner(true);
+    //
+    // // Listen for push notifications received
+    // Pushy.setNotificationListener(backgroundNotificationListener);
+    //
+    // pushyRegister();
+  }
+
   final router = GoRouter(
-    initialLocation: '/login_bloc',
     urlPathStrategy: UrlPathStrategy.path,
+      initialLocation: '/header',
       routes: [
+        // GoRoute(
+        //     path: '/Internet',
+        //     pageBuilder: (context, state) =>
+        //         MaterialPage(key: state.pageKey, child: InternetChecker())
+        // ),
+        // GoRoute(
+        //     path: '/login_bloc',
+        //     pageBuilder: (context, state) =>
+        //         MaterialPage(key: state.pageKey, child: LoginBlocPage())
+        // ),
         GoRoute(
-            path: '/Internet',
+            path: '/sqlite',
             pageBuilder: (context, state) =>
-                MaterialPage(key: state.pageKey, child: InternetChecker())
+                MaterialPage(key: state.pageKey, child: SQLitePage())
         ),
         GoRoute(
-            path: '/login_bloc',
+            path: '/resp_home',
             pageBuilder: (context, state) =>
-                MaterialPage(key: state.pageKey, child: LoginBlocPage())
+                MaterialPage(key: state.pageKey, child: ResponsiveDashboard())
+        ),
+        GoRoute(
+            path: '/bottom_nav',
+            pageBuilder: (context, state) =>
+                MaterialPage(key: state.pageKey, child: BottomNavHome())
+        ),
+        GoRoute(
+            path: '/sidebar',
+            pageBuilder: (context, state) =>
+                MaterialPage(key: state.pageKey, child: SideBarScreen())
+        ),
+        GoRoute(
+            path: '/header',
+            pageBuilder: (context, state) =>
+                MaterialPage(key: state.pageKey, child: Header())
         ),
         GoRoute(
             path: '/',
@@ -86,12 +198,14 @@ class TheApp extends StatelessWidget {
 
   final contentRepository = DataRepository(DataProvider());
   final loginRepository = LoginBlocRepository(LoginBlocData());
+  final sqliteRepository = SQLiteRepository(SQLiteRemote());
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => BoxContentBloc(contentRepository)..add(LoadAllBoxContents())),
+        BlocProvider(create: (_) => SQLiteBloc(sqliteRepository)..add(LoadSQliteEvent())),
         BlocProvider(create: (_) => LoginBloc(loginRepository))
       ],
       child: OverlaySupport.global(

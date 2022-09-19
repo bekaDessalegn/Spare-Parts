@@ -14,9 +14,11 @@ class BoxContentBloc extends Bloc<BoxContentEvent, BoxContentState>{
   }
 
   void _onLoadContent(LoadAllBoxContents event, Emitter emit) async{
+
+    emit(BoxContentLoading());
+    await Future.delayed(Duration(seconds: 3));
+
     try{
-      emit(BoxContentLoading());
-      await Future.delayed(Duration(seconds: 3));
       final contents = await dataRepository.getBoxContents();
       emit(BoxContentLoaded(contents!.val!));
     }
