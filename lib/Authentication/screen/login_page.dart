@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:spare_parts/Authentication/bloc/login_bloc.dart';
 import 'package:spare_parts/Authentication/bloc/login_event.dart';
 import 'package:spare_parts/Authentication/bloc/login_state.dart';
 import 'package:spare_parts/Authentication/model/login_bloc_model.dart';
 import 'package:spare_parts/Authentication/screen/login_dashboard.dart';
 import 'package:spare_parts/Authentication/screen/widgets/loading_widget.dart';
+import 'package:spare_parts/main.dart';
 
 class LoginBlocPage extends StatefulWidget {
 
@@ -20,6 +22,8 @@ class _LoginBlocPageState extends State<LoginBlocPage> {
 
   final password = TextEditingController();
 
+  final loginInfo = LoginInfo();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +35,8 @@ class _LoginBlocPageState extends State<LoginBlocPage> {
             }
             else if(state is LoginPassedState){
               clearTextData();
-              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginBlocDashboard()));
+              loginInfo.isLoggedIn = true;
+              context.go('/sqlite');
             }
           },
             builder: (_, state){

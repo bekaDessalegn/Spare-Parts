@@ -22,8 +22,8 @@ class _BottomNavHomeState extends State<BottomNavHome> {
       bottomNavigationBar: ConvexAppBar(
           backgroundColor: Colors.blue,
           initialActiveIndex: index,
+          style: TabStyle.react,
           cornerRadius: 0,
-          style: TabStyle.fixedCircle,
           items: <TabItem>[
         TabItem(icon: Icons.home, title: 'Home'),
         TabItem(icon: Icons.favorite, title: 'Favourite'),
