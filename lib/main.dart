@@ -40,6 +40,7 @@ import 'package:spare_parts/SideBar/sidebar_screen.dart';
 import 'package:spare_parts/SignInandOut/signin.dart';
 import 'package:spare_parts/TabBar/Tab%20Bar.dart';
 import 'package:flutter/services.dart';
+import 'package:spare_parts/VideoPlayer/video_player.dart';
 import 'package:spare_parts/WebImage/web_image.dart';
 import 'package:spare_parts/ScorllableTab/scrollabelTab.dart';
 import 'package:spare_parts/youtube_displayer/youtube_displayer.dart';
@@ -152,7 +153,7 @@ class _TheAppState extends State<TheApp> {
     //   return null;
     // },
     urlPathStrategy: UrlPathStrategy.path,
-      initialLocation: '/phone',
+      initialLocation: '/video_player',
       routes: [
         // GoRoute(
         //     path: '/internet',
@@ -208,6 +209,11 @@ class _TheAppState extends State<TheApp> {
             path: '/phone',
             pageBuilder: (context, state) =>
                 MaterialPage(key: state.pageKey, child: NewEntryPage())
+        ),
+        GoRoute(
+            path: '/video_player',
+            pageBuilder: (context, state) =>
+                MaterialPage(key: state.pageKey, child: VideoPlayerScreen())
         ),
         GoRoute(
             path: '/',

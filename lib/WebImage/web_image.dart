@@ -57,8 +57,6 @@ class _WebImageState extends State<WebImage> {
       'Accept': '*/*',
       'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
       'Api-Key': '2S9f4e2D886aGa231caH2H44f2R25Jf487cDfaa3G',
-      'Authorization':
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzRiZDBjYjJhZGE5NTEyMTBiZmU3OWYiLCJ1c2VyVHlwZSI6ImFkbWluIiwicmFuZCI6MC45NDY1NTU4OTAxMjA4MTA0LCJpYXQiOjE2NjYyMDIwMDksImV4cCI6MTY2NjIwMjYwOX0.Lk9T0-wvTgeJFmMJlt1wf7DLMCTZEIQUcbPPEVgGwGw'
     };
     var url = Uri.parse('http://localhost:5000/products');
 
@@ -80,8 +78,6 @@ class _WebImageState extends State<WebImage> {
     //     'Accept': '*/*',
     //     'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
     //     'Api-Key': '2S9f4e2D886aGa231caH2H44f2R25Jf487cDfaa3G',
-    //     'Authorization':
-    //     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzRiZDBjYjJhZGE5NTEyMTBiZmU3OWYiLCJ1c2VyVHlwZSI6ImFkbWluIiwicmFuZCI6MC44MDQ3OTM0NjczNjI4NDQxLCJpYXQiOjE2NjYyMDA3MzUsImV4cCI6MTY2NjIwMTMzNX0.NrKgH5UCwM8W0KD2iMDo5lCyaRgtqR0P1Hw6Kxdpr5U'
     //   }
     // ));
 
@@ -144,8 +140,6 @@ class _WebImageState extends State<WebImage> {
     var headersList = {
       'Accept': '*/*',
       'Api-Key': '2S9f4e2D886aGa231caH2H44f2R25Jf487cDfaa3G',
-      'Authorization':
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzRiZDBjYjJhZGE5NTEyMTBiZmU3OWYiLCJ1c2VyVHlwZSI6ImFkbWluIiwicmFuZCI6MC4wNjI2MTM2MDU3OTU0Mjg5NiwiaWF0IjoxNjY2MTE4NDA4LCJleHAiOjE2NjYxMTkwMDh9.7Riplek7sztkW2-D83ko8mMk45WdNWgpK_b57Vq6pU8'
     };
     var url =
         Uri.parse('http://localhost:5000/products/634ef1232816966ab5f9fb11');
