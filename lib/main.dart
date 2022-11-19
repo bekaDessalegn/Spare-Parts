@@ -153,7 +153,7 @@ class _TheAppState extends State<TheApp> {
     //   return null;
     // },
     urlPathStrategy: UrlPathStrategy.path,
-      initialLocation: '/video_player',
+      initialLocation: '/',
       routes: [
         // GoRoute(
         //     path: '/internet',
