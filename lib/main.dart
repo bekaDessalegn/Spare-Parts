@@ -153,13 +153,18 @@ class _TheAppState extends State<TheApp> {
     //   return null;
     // },
     urlPathStrategy: UrlPathStrategy.path,
-      initialLocation: '/',
+      initialLocation: '/tab_bar',
       routes: [
         // GoRoute(
         //     path: '/internet',
         //     pageBuilder: (context, state) =>
         //         MaterialPage(key: state.pageKey, child: InternetChecker())
         // ),
+        GoRoute(
+            path: '/tab_bar',
+            pageBuilder: (context, state) =>
+                MaterialPage(key: state.pageKey, child: TabBarScreen())
+        ),
         // GoRoute(
         //     path: '/web_image',
         //     pageBuilder: (context, state) =>
